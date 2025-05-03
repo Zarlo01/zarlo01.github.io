@@ -1,0 +1,1784 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Capture Tracker</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .table tbody td img {
+            height: 64px;
+            width: auto;
+        }
+        .NotAvailable {
+            color: #2fa432;
+        }
+        .AvailableForGiveaway {
+            color: #c1a518;
+        }
+        .NotAvailable {
+            color: #ad1e1e;
+        }
+        .count {font-size: 30px;
+        }
+        /* Noir et blanc */
+        .black-and-white {filter: grayscale(100%);
+          -webkit-filter: grayscale(100%);
+        }
+
+        /* Tout noir (seulement la forme) */
+        .all-black {filter: brightness(0%);
+          -webkit-filter: brightness(0%);
+        }
+
+        /* Texte plus grand dans <td> */
+        .large-text td {font-size: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark" style="justify-content: center; background-color: #2a2a2a;">
+      <form class="form-inline">
+        <a class="btn btn-sm btn-outline-secondary" href="main.html" style="color: white;">Accueil Pokédex</a>
+        <a class="btn btn-sm btn-outline-secondary" href="commandgenerator.html" style="color: white;">Command Generator</a>
+        <a class="btn btn-sm btn-outline-secondary" href="raid.html" style="color: white;">Raid Result</a>
+        <a class="btn btn-sm btn-outline-secondary" href="availablepokemon.html" style="color: white;">Pokédex Infos</a>
+        <a class="btn btn-sm btn-outline-secondary" href="pokestats.html" style="color: white;">Classements</a>
+        <a class="btn btn-sm btn-outline-secondary" href="buypokemon.html" style="color: white;">Acheter Pokémon</a>
+        <a class="btn btn-sm btn-outline-secondary" href="scrappokemon.html" style="color: white;">Scrap Pokémon</a>
+        <a class="btn btn-sm btn-outline-secondary" href="records.html" style="color: white;">Enregistrements</a>
+      </form>
+    </nav><br><br>
+
+  <div class="d-flex align-items-center" style="max-width: 480px;">
+    <!-- Input recherche avec max-width -->
+    <input type="text" id="searchInput" placeholder="Rechercher Pokémon ou Statut" class="form-control" style="margin-bottom: 20px; max-width: 300px;">
+    <!-- Compteur -->
+    <span id="rowCount" style="margin-left: 10px; font-size: 16px;">0 résultat(s)</span>
+  </div>
+    <table class="table table-dark table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Pokémon</th>
+                <th>Sprite Normal</th>
+                <th>Capturé(s)</th>
+                <th>Sprite Shiny</th>
+                <th>Capturé(s)</th>
+                <th>Disponibilité</th>
+                <th>Artist</th>
+                <th class="d-none">Tag</th>
+            </tr>
+        </thead>
+        <tbody id="recordsTable">
+<tr>
+                <td>Bulbizarre</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Bulbasaur_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Bulbasaur_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Herbizarre</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ivysaur_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ivysaur_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Florizarre</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Venusaur_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Venusaur_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Salamèche</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Charmander_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Charmander_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Reptincel</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Charmeleon_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Charmeleon_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Dracaufeu</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Charizard_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Charizard_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Carapuce</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Squirtle_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Squirtle_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Carabaffe</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Wartortle_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Wartortle_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tortank</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Blastoise_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Blastoise_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Chenipan</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Caterpie_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Caterpie_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Chrysacier</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Metapod_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Metapod_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Papilusion</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Butterfree_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Butterfree_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Aspicot</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Weedle_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Weedle_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Coconfort</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kakuna_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kakuna_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Dardargnan</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Beedrill_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Beedrill_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Roucool</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pidgey_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pidgey_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Roucoups</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pidgeotto_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pidgeotto_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Roucarnage</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pidgeot_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pidgeot_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rattata</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rattata_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rattata_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rattatac</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Raticate_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Raticate_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Piafabec</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Spearow_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Spearow_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rapasdepic</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Fearow_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Fearow_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Abo</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ekans_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ekans_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Arbok</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Arbok_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Arbok_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Pikachu</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pikachu_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pikachu_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Raichu</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Raichu_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Raichu_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Sabelette</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Sandshrew_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Sandshrew_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Sablaireau</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Sandslash_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Sandslash_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nidoran♀</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/normal/nidoran-f.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/shiny/nidoran-f.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nidorina</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidorina_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidorina_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nidoqueen</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidoqueen_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidoqueen_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nidoran♂</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/normal/nidoran-m.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/shiny/nidoran-m.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nidorino</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidorino_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidorino_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nidoking</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidoking_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Nidoking_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Mélofée</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Clefairy_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Clefairy_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fairy ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Mélodelfe</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Clefable_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Clefable_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fairy ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Goupix</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Vulpix_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Vulpix_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Feunard</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ninetales_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ninetales_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rondoudou</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Jigglypuff_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Jigglypuff_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; fairy ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Grodoudou</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Wigglytuff_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Wigglytuff_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; fairy ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nosferapti</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Zubat_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Zubat_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Nosferalto</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Golbat_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Golbat_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Mystherbe</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Oddish_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Oddish_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ortide</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gloom_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gloom_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rafflesia</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Vileplume_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Vileplume_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Paras</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Paras_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Paras_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; grass ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Parasect</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Parasect_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Parasect_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; grass ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Mimitoss</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Venonat_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Venonat_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Aéromite</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Venomoth_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Venomoth_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Taupiqueur</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Diglett_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Diglett_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Triopikeur</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dugtrio_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dugtrio_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Miaouss</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Meowth_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Meowth_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Persian</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Persian_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Persian_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Psykokwak</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Psyduck_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Psyduck_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Akwakwak</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Golduck_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Golduck_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Férosinge</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Mankey_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Mankey_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Colossinge</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Primeape_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Primeape_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Caninos</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Growlithe_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Growlithe_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Arcanin</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Arcanine_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Arcanine_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ptitard</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Poliwag_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Poliwag_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Têtarte</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Poliwhirl_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Poliwhirl_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tartard</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Poliwrath_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Poliwrath_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Abra</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Abra_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Abra_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Kadabra</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kadabra_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kadabra_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Alakazam</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Alakazam_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Alakazam_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Machoc</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Machop_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Machop_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Machopeur</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Machoke_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Machoke_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Mackogneur</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Machamp_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Machamp_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Chétiflor</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Bellsprout_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Bellsprout_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Boustiflor</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Weepinbell_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Weepinbell_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Empiflor</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Victreebel_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Victreebel_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tentacool</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tentacool_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tentacool_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tentacruel</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tentacruel_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tentacruel_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Racaillou</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Geodude_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Geodude_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Gravalanch</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Graveler_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Graveler_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Grolem</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Golem_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Golem_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ponyta</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ponyta_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ponyta_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Galopa</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rapidash_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rapidash_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ramoloss</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Slowpoke_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Slowpoke_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Flagadoss</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Slowbro_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Slowbro_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Magnéti</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magnemite_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magnemite_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; steel ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Magnéton</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magneton_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magneton_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; steel ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Canarticho</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/normal/farfetchd.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/shiny/farfetchd.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Doduo</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Doduo_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Doduo_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Dodrio</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dodrio_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dodrio_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Otaria</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Seel_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Seel_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Lamantine</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dewgong_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dewgong_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; ice ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tadmorv</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Grimer_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Grimer_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Grotadmorv</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Muk_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Muk_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Kokiyas</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Shellder_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Shellder_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Crustabri</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Cloyster_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Cloyster_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; ice ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Fantominus</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gastly_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gastly_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ghost ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Spectrum</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Haunter_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Haunter_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ghost ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ectoplasma</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gengar_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gengar_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ghost ; poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Onix</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Onix_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Onix_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Soporifik</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Drowzee_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Drowzee_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Hypnomade</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Hypno_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Hypno_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Krabby</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Krabby_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Krabby_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Krabboss</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kingler_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kingler_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Voltorbe</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Voltorb_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Voltorb_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Electrode</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Electrode_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Electrode_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Noeunoeuf</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Exeggcute_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Exeggcute_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Noadkoko</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Exeggutor_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Exeggutor_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Osselait</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Cubone_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Cubone_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ossatueur</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Marowak_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Marowak_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Kicklee</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Hitmonlee_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Hitmonlee_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tygnon</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Hitmonchan_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Hitmonchan_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fighting ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Excelangue</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Lickitung_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Lickitung_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Smogo</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Koffing_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Koffing_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Smogogo</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Weezing_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Weezing_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">poison ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rhinocorne</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rhyhorn_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rhyhorn_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; rock ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Rhinoféros</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rhydon_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Rhydon_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ground ; rock ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Leveinard</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Chansey_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Chansey_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Saquedeneu</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tangela_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tangela_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">grass ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Kangourex</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kangaskhan_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kangaskhan_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Hypotrempe</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Horsea_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Horsea_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Hypocean</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Seadra_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Seadra_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Poissirène</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Goldeen_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Goldeen_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Poissoroy</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Seaking_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Seaking_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Stari</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Staryu_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Staryu_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Staross</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Starmie_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Starmie_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>M. Mime</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/normal/mr-mime.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://img.pokemondb.net/sprites/black-white/anim/shiny/mr-mime.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">psychic ; fairy ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Insecateur</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Scyther_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Scyther_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Lippoutou</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Jynx_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Jynx_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">ice ; psychic ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Elektek</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Electabuzz_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Electabuzz_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Magmar</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magmar_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magmar_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Scarabrute</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pinsir_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Pinsir_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">bug ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Tauros</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tauros_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Tauros_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Magicarpe</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magikarp_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Magikarp_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Léviator</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gyarados_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Gyarados_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Lokhlass</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Lapras_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Lapras_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; ice ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Métamorph</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ditto_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Ditto_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="AvailableForGiveaway">Dispo : only under distribution / events.</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Evoli</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Eevee_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Eevee_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Aquali</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Vaporeon_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Vaporeon_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Voltali</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Jolteon_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Jolteon_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">electric ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Pyroli</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Flareon_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Flareon_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">fire ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Porygon</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Porygon_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Porygon_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Amonita</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Omanyte_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Omanyte_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Amonistar</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Omastar_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Omastar_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Kabuto</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kabuto_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kabuto_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Kabutops</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kabutops_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Kabutops_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; water ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ptéra</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Aerodactyl_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Aerodactyl_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">rock ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Ronflex</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Snorlax_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Snorlax_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">normal ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Artikodin</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Articuno_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Articuno_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="AvailableForGiveaway">Dispo : only under distribution / events.</td>
+                <td>/</td>
+                <td class="d-none">légendaire legendaire legendary ; ice ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Électhor</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Zapdos_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Zapdos_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="AvailableForGiveaway">Dispo : only under distribution / events.</td>
+                <td>/</td>
+                <td class="d-none">légendaire legendaire legendary ; electric ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Sulfura</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Moltres_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Moltres_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="AvailableForGiveaway">Dispo : only under distribution / events.</td>
+                <td>/</td>
+                <td class="d-none">légendaire legendaire legendary ; fire ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Minidraco</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dratini_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dratini_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">dragon ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Draco</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dragonair_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dragonair_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">dragon ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Dracolosse</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dragonite_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Dragonite_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="FullAvailable">Dispo : fully available</td>
+                <td>/</td>
+                <td class="d-none">dragon ; flying ; Kanto</td>
+            </tr>
+
+<tr>
+                <td>Mewtwo</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Mewtwo_normal.gif" alt="Normal Sprite"></td>
+                <td class="count">0</td>
+                <td><img class = "all-black" src="https://raw.githubusercontent.com/MythMega/PkServData/refs/heads/master/img/sprite/poke/vanilla/Mewtwo_shiny.gif" alt="Shiny Sprite"></td>
+                <td class="count">0</td>
+                <td class="AvailableForGiveaway">Dispo : only under distribution / events.</td>
+                <td>/</td>
+                <td class="d-none">légendaire legendaire legendary ; psychic ; Kanto</td>
+            </tr>
+</tbody>
+    </table>
+<br><br>
+    <script>
+  // Fonction qui normalise le texte en supprimant les accents et en le convertissant en minuscules
+  function normalizeText(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
+  function filterTable() {
+    // Récupère et normalise le texte de recherche
+    const searchValue = normalizeText(document.getElementById('searchInput').value);
+    // Découpe le texte en tokens et retire les espaces inutiles
+    const tokens = searchValue.split(' ').filter(token => token.trim() !== '');
+    const tableRows = document.querySelectorAll('#recordsTable tr');
+    let visibleCount = 0;
+
+    tableRows.forEach(row => {
+      // Extraction et normalisation des contenus de chaque colonne recherchée
+      const pokemon = normalizeText(row.cells[0].textContent); // Colonne Pokémon
+      const dispo   = normalizeText(row.cells[5].textContent);   // Colonne dispo (statut ou autre)
+      const artist  = normalizeText(row.cells[6].textContent);   // Colonne artist
+      const tags    = normalizeText(row.cells[7].textContent);   // Colonne tags
+
+      // Pour chaque token, vérifie qu'il se retrouve dans au moins un des champs
+      const isMatch = tokens.every(token =>
+        pokemon.includes(token) || dispo.includes(token) || artist.includes(token) || tags.includes(token)
+      );
+
+      // Affiche la ligne si tous les tokens sont trouvés (ou s'il n'y a aucun token)
+      if (isMatch || tokens.length === 0) {
+        row.style.display = '';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    document.getElementById('rowCount').textContent = visibleCount + " résultat(s)";
+  }
+
+  // Ajout de l'événement pour lancer le filtrage à la saisie
+  document.getElementById('searchInput').addEventListener('keyup', filterTable);
+
+  // Mise à jour du filtrage dès le chargement de la page
+  document.addEventListener('DOMContentLoaded', filterTable);
+</script>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
